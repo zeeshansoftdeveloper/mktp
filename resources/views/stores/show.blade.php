@@ -12,7 +12,7 @@
             
             <div class="profile-header-content" style="background: url({{asset('storage/uploads/stores/logo/'.$store->first()->store_images[0]->logo) }}) center no-repeat;">
                 <div class="profile-header-img">
-                    <img src="{{asset('storage/uploads/stores/logo/'.$store->first()->store_images[0]->logo) }}" alt="" />
+                    <img src="{{asset('storage/'.$store->first()->store_images[0]->logo) }}" alt="" />
                 </div>
             </div>
     
@@ -29,7 +29,7 @@
             <div class="row row-space-20">
                 <div class="col-md-12">
                     <section>
-                        <h3>{{$store->first()->services->first()->category->cat_name}}</h3>
+                        <h3>@if(!$store->first()->services->first()===null){{$store->first()->services->first()->category->cat_name}}@endif</h3>
                             <div class="owl-carousel owl-theme mt-5" id="srvGall">
                                 @foreach($store as $stor)
                                 <div class="item">

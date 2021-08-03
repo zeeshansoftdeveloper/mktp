@@ -17,10 +17,12 @@ use Auth;
 use DB;
 use Response;
 
-use Intervention\Image\ImageManagerStatic as Image;
+use App\Traits\ImageUpload;
 
 class VendorController extends Controller
 {
+    use ImageUpload;
+
     public function __construct()
     {
         $this->middleware(['auth', 'role:2']);
@@ -145,15 +147,16 @@ class VendorController extends Controller
         $matchThese = array('name'=>$request->name, 'store_id'=>$request->store_id);
 
         if($request->hasFile('service_img')){
-            $image = $request->file('service_img');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->resize(300, 300)->save( storage_path('/app/public/uploads/services/' . $filename ) );
+            $serv_image = $request->file('service_img');
+            $serv_folder = 'stores/'.$request->store_id."/services/";
+            $serv_path =  $this->saveImages($serv_image, $serv_folder, 500);
+
             Service::updateOrCreate($matchThese,
                 [
                     'name'=>$request->name,
                     'service_code'=>$request->service_code,
                     'service_detail'=>$request->service_detail,
-                    'service_img'=>$filename,
+                    'service_img'=>$serv_path,
                     'store_id'=>$request->store_id,
                     'category_id'=>$request->category_id,
                     'price_type_id'=>$request->price_type_id
