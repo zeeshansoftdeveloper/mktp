@@ -66,13 +66,13 @@
             <section>
                 <h3>Top Rated Stores</h3>
                     <div class="owl-carousel owl-theme mt-5" id="srvGall">
-                    @if(!$stores === null))
+                    
                         @foreach($stores as $stor)
                             @php
                                 $i=0;
                             @endphp
                         <div class="item">
-                            <img src="{{asset('storage/uploads/stores/logo/'.$stor->store_images[$i]->logo) }}" alt="" style="width: 265px; height: 150px;" />
+                            <img src="{{asset('storage/'.$stor->store_images[$i]->logo) }}" alt="" style="width: 265px; height: 150px;" />
                             <a href="{{route('storeHome', $stor->id)}}" class="link-light nounderline">{{$stor->store_name}}</a>
                         </div>
                             @php
@@ -82,7 +82,7 @@
                             }
                             @endphp
                         @endforeach
-                    @endif
+                   
                     </div>
             </section>
 

@@ -53,12 +53,12 @@ class StoreImageController extends Controller
             $logo = $request->file('logo');
 
             // Define folder path
-            $ban_folder = 'public/stores/'.$request->store_id."/banner/";
-            $lgo_folder = 'public/stores/'.$request->store_id."/logo/";
+            $ban_folder = 'stores/'.$request->store_id."/banner/";
+            $lgo_folder = 'stores/'.$request->store_id."/logo/";
             
             // Upload image
-            $banPath = $this->saveImages($banner, $ban_folder);
-            $lgoPath =  $this->saveImages($logo, $lgo_folder);
+            $banPath = $this->saveImages($banner, $ban_folder, 1000);
+            $lgoPath =  $this->saveImages($logo, $lgo_folder, 200);
             // Set user profile image path in database to filePath
             $matchThese = array('store_id'=>$request->store_id);
             StoreImage::updateOrCreate($matchThese,
