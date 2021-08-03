@@ -88,14 +88,14 @@
 
             <section>
                 <h3>Top Rated Services</h3>
-                    <div class="owl-carousel owl-theme mt-5" id="srvGall">
+                    <div class="owl-carousel owl-theme mt-5" id="srvGall2">
                     
                         @foreach($services as $service)
                             @php
                                 $i=0;
                             @endphp
                         <div class="item">
-                            <img src="{{asset('storage/'.$service->service_images) }}" alt="" style="width: 265px; height: 150px;" />
+                            <img src="{{asset('storage/'.$service->service_img) }}" alt="" style="width: 265px; height: 150px;" />
                             <a href="{{route('storeHome', $service->id)}}" class="link-light nounderline">{{$service->name}}</a>
                         </div>
                             @php
@@ -118,6 +118,27 @@
     <script>
         $(document).ready(function(){
             $('#srvGall').owlCarousel({
+                loop:true,
+                margin:10,
+                responsiveClass:true,
+                responsive:{
+                    0:{
+                        items:1,
+                        nav:true
+                    },
+                    600:{
+                        items:3,
+                        nav:false
+                    },
+                    1000:{
+                        items:5,
+                        nav:true,
+                        loop:false
+                    }
+                }
+            });
+
+            $('#srvGall2').owlCarousel({
                 loop:true,
                 margin:10,
                 responsiveClass:true,
