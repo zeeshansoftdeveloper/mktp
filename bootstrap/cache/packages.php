@@ -6,6 +6,17 @@
       0 => 'Appzcoder\\CrudGenerator\\CrudGeneratorServiceProvider',
     ),
   ),
+  'darryldecode/cart' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Darryldecode\\Cart\\CartServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Cart' => 'Darryldecode\\Cart\\Facades\\CartFacade',
+    ),
+  ),
   'facade/ignition' => 
   array (
     'providers' => 
@@ -127,6 +138,13 @@
     'providers' => 
     array (
       0 => 'Sven\\ArtisanView\\ServiceProvider',
+    ),
+  ),
+  'theanik/laravel-more-command' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Theanik\\LaravelMoreCommand\\LaravelMoreCommandProvider',
     ),
   ),
   'yajra/laravel-datatables-oracle' => 

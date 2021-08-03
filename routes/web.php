@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\StoreImageController;
 use App\Http\Controllers\MessageController;
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,9 @@ Route::resource('/messages', MessageController::class)->only([
 
 
 Route::get('/storeHome/{id}', [StoreController::class, 'index'])->name('storeHome');
+
+Route::get('/storeImgSet', [StoreImageController::class, 'create'])->name('storeImgSet');
+Route::post('/storeImgSave', [StoreImageController::class, 'store'])->name('storeImgSave');
 
 // Registration Routes...
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');

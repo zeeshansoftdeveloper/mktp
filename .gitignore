@@ -13,3 +13,8 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+bootstrap/cache/services.php
+.gitignore
+bootstrap/cache/config.php
+.env.example
+public/mix-manifest.json
