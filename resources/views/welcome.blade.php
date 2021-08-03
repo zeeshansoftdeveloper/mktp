@@ -86,6 +86,29 @@
                     </div>
             </section>
 
+            <section>
+                <h3>Top Rated Services</h3>
+                    <div class="owl-carousel owl-theme mt-5" id="srvGall">
+                    
+                        @foreach($services as $service)
+                            @php
+                                $i=0;
+                            @endphp
+                        <div class="item">
+                            <img src="{{asset('storage/'.$service->service_images) }}" alt="" style="width: 265px; height: 150px;" />
+                            <a href="{{route('storeHome', $service->id)}}" class="link-light nounderline">{{$service->name}}</a>
+                        </div>
+                            @php
+                                
+                            if($i<count($stor->store_images)){
+                                $i++;
+                            }
+                            @endphp
+                        @endforeach
+                   
+                    </div>
+            </section>
+
         </div>
     </body>
 

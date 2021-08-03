@@ -19,6 +19,6 @@ trait ImageUpload
        //Move file to your location 
        Storage::move($filename, '/public/'.$folder. '/' . $filename);
             
-        return $folder. '/'.$filename;
+        return $folder. $filename;
     }
 }
