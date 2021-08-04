@@ -61,6 +61,7 @@ h1 {
     height: 10rem;
     background: #ff6969;
     padding: 1rem;
+    width: 16.5rem;
 }
 .owl-carousel .item h4 {
     color: #fff;
@@ -131,5 +132,8 @@ h1 {
     left: 45rem;
   }
   .nounderline {
-    text-decoration: none !important
+    text-decoration: none !important;
+    color: #fff;
+    background-color: rgba(168, 160, 151, 0.486);
+    font-weight: bolder;
   }

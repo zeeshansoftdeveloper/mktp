@@ -10,7 +10,7 @@
         <div class="profile-header">
             <div class="profile-header-cover"></div>
             
-            <div class="profile-header-content" style="background: url({{asset('storage/uploads/stores/logo/'.$store->first()->store_images[0]->logo) }}) center no-repeat;">
+            <div class="profile-header-content" style="background: url({{asset('storage/'.$store->first()->store_images[0]->banner) }}) no-repeat center center fixed; background-size: 100%;">
                 <div class="profile-header-img">
                     <img src="{{asset('storage/'.$store->first()->store_images[0]->logo) }}" alt="" />
                 </div>
