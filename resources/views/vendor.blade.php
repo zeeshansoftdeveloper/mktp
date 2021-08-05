@@ -301,7 +301,7 @@
                             </span>
 
                             <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">{{$srvCount}}</div>
-                            <a href="{{route('addservice')}}" class="text-inverse-primary font-weight-bold font-size-lg mt-1">Services</a>
+                            <a href="{{route('indexServices')}}" class="text-inverse-primary font-weight-bold font-size-lg mt-1">Services</a>
                         </div>
                     </div>
                     <!--end::Tiles Widget 11-->

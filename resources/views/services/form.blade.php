@@ -33,7 +33,7 @@
     <select name="category_id" class="form-control" id="category_id" >
         <option value="">Select Category</option>
     @foreach ($cats as $cat)
-        <option value="{{ $cat->id }}" {{ (isset($service->store_id) && $service->store_id == $cat->id) ? 'selected' : ''}}>{{ $cat->cat_name }}</option>
+        <option value="{{ $cat->id }}" {{ (isset($service->category_id) && $service->category_id == $cat->id) ? 'selected' : ''}}>{{ $cat->cat_name }}</option>
     @endforeach
 </select>
     {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
@@ -51,5 +51,6 @@
 
 
 <div class="form-group">
+    <input name="service_id" type="hidden" id="service_id" value="{{ isset($service->id) ? $service->id : ''}}" >
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
 </div>

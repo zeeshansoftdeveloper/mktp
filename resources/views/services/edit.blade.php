@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">Edit service #{{ $service->id }}</div>
                     <div class="card-body">
-                        <a href="{{ url('/admin/services') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ route('vendDash') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -21,8 +21,8 @@
                             </ul>
                         @endif
 
-                        <form method="POST" action="{{ url('/admin/services/' . $service->id) }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
+                        <form method="POST" action="{{ route('updateService') }}" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
+                            {{ method_field('POST') }}
                             {{ csrf_field() }}
 
                             @include ('services.form', ['formMode' => 'edit'])

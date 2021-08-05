@@ -224,6 +224,58 @@ class VendorController extends Controller
         return redirect()->route('vendDash');
     }
 
+    public function editService($id)
+    {
+        $cats = Category::where('cat_type', '=', '0')->get();
+        $stores = Store::where('owner_id', Auth::user()->id)->get();
+        $pricingType = PricingType::all();
+        $service = Service::where('id',$id)->first();
+
+        return view('services.edit', compact('cats', 'stores', 'pricingType', 'service') );
+    }
+
+    public function renovateService(Request $request)
+    {
+        $matchThese = array('name'=>$request->name, 'store_id'=>$request->store_id, 'id'=>$request->service_id);
+
+        if($request->hasFile('service_img')){
+            $serv_image = $request->file('service_img');
+            $serv_folder = 'stores/'.$request->store_id."/services/";
+            $serv_path =  $this->saveImages($serv_image, $serv_folder, 500);
+
+            Service::updateOrCreate($matchThese,
+                [
+                    'name'=>$request->name,
+                    'service_code'=>$request->service_code,
+                    'service_detail'=>$request->service_detail,
+                    'service_img'=>$serv_path,
+                    'store_id'=>$request->store_id,
+                    'category_id'=>$request->category_id,
+                    'price_type_id'=>$request->price_type_id
+                ]
+            );
+          }
+        return redirect()->route('vendDash');
+    }
+
+    public function eradicateService($id)
+    {
+        Service::where('id', $id)->delete();
+        return redirect()->route('vendDash');
+    }
+
+    public function displayService($id)
+    {
+        $service = Service::where("id", $id)->first();
+        return view('services.show', compact('services'));
+    }
+
+    public function displayAllServices()
+    {
+        $services = Service::paginate(20);
+        return view('services.index', compact('services'));
+    }
+
     /**
      * Display the specified resource.
      *
