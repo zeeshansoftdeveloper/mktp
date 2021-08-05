@@ -254,7 +254,7 @@ class VendorController extends Controller
                     'price_type_id'=>$request->price_type_id
                 ]
             );
-          }
+        }
         return redirect()->route('vendDash');
     }
 
