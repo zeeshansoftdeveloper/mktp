@@ -265,6 +265,27 @@ class VendorController extends Controller
         return redirect()->route('vendDash')->withSuccess('Saved');
     }
 
+    public function displayStore($id)
+    {
+        $store = Store::where("id", $id)->first();
+        return view('stores.show', compact('Store'));
+    }
+
+    public function displayAllStores()
+    {
+        $stores = Store::paginate(20);
+        return view('stores.index', compact('stores'));
+    }
+
+    public function eradicateStore($id)
+    {
+        Store::where('id', $id)->delete();
+        return redirect()->route('vendDash');
+    }
+
+    /*********************
+    * Product Related
+    **********************/
     public function createProduct()
     {
         $stores = Store::where('owner_id', Auth::user()->id)->get();
@@ -284,21 +305,41 @@ class VendorController extends Controller
         return redirect()->route('vendDash');
     }
 
-    public function displayStore($id)
+    public function editProduct($id)
     {
-        $store = Store::where("id", $id)->first();
-        return view('stores.show', compact('Store'));
+        $stores = Store::where('owner_id', Auth::user()->id)->get();
+        $product = Product::where('id', $id)->first();
+        return view('products.edit', compact('stores', 'product') ); 
     }
 
-    public function displayAllStores()
+    public function renovateProduct(Request $request)
     {
-        $stores = Store::paginate(20);
-        return view('stores.index', compact('stores'));
+        $matchThese = array('id'=>$request->product_id);
+        Product::updateOrCreate($matchThese,
+            [
+                'name'=>$request->name,
+                'store_id'=>$request->store_id
+            ]
+        );
+        return redirect()->route('vendDash');
     }
 
-    public function eradicateStore($id)
+    public function displayAllProducts()
     {
-        Store::where('id', $id)->delete();
+        $products = Product::paginate(20);
+        return view('products.index', compact('products'));
+    }
+
+    public function displayProduct($id)
+    {
+        $product = Product::where("id", $id)->first();
+        return view('products.show', compact('product'));
+    }
+
+    public function eradicateProduct($id)
+    {
+        $product = Product::where('id',$id);
+        $product->delete();
         return redirect()->route('vendDash');
     }
 }

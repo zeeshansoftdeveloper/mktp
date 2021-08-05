@@ -76,8 +76,8 @@
                 <!--begin::Header-->
                 <div class="card-header border-0 pt-5">
                     <h3 class="card-title align-items-start flex-column">
-                        <span class="card-label font-weight-bolder text-dark">Add</span>
-                        <span class="text-muted mt-3 font-weight-bold font-size-lg">New product</span>
+					<a href="{{ route('vendDash') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <span class="text-muted mt-3 font-weight-bold font-size-lg"></span>
                     </h3>
                     
                 </div>
@@ -88,12 +88,10 @@
                     <div class="table-responsive">
                     <div class="col-md-9">
                 <div class="card">
-                    <div class="card-header">Form </div>
+                    <div class="card-header">
+					<span class="card-label font-weight-bolder text-dark">Add New product</span>
+					</div>
                     <div class="card-body">
-                        <a href="{{ route('vendDash') }}" title="Back"><button class="btn btn-warning btn-sm"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <br />
-                        <br />
-
                         @if ($errors->any())
                             <ul class="alert alert-danger">
                                 @foreach ($errors->all() as $error)

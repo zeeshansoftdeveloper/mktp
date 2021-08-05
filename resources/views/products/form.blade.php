@@ -16,5 +16,6 @@
 
 
 <div class="form-group">
+    <input name="product_id" type="hidden" id="product_id" value="{{ isset($product->id) ? $product->id : ''}}" >
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
 </div>

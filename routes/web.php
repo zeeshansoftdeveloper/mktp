@@ -83,7 +83,10 @@ Route::post('/saveProduct', [VendorController::class, 'storeProduct'])->name('sa
 Route::get('/prodLister', [VendorController::class, 'productListing'])->name('prodLister')->middleware(['role:2']);
 Route::post('/getProductByStore', [VendorController::class, 'fetchProductByStore'])->name('getProductByStore')->middleware(['role:2']);
 Route::get('/changeProduct/{id}', [VendorController::class, 'editProduct'])->name('changeProduct')->middleware(['role:2']);
-Route::post('/saveProduct', [VendorController::class, 'storeProduct'])->name('saveProduct')->middleware(['role:2']);
+Route::post('/updateProduct', [VendorController::class, 'renovateProduct'])->name('updateProduct')->middleware(['role:2']);
+Route::get('/indexProducts', [VendorController::class, 'displayAllProducts'])->name('indexProducts')->middleware(['role:2']);
+Route::get('/showProduct/{id}', [VendorController::class, 'displayProduct'])->name('showProduct')->middleware(['role:2']);
+Route::delete('/removeProduct/{id}', [VendorController::class, 'eradicateProduct'])->name('removeProduct')->middleware(['role:2']);
 
 // Vendor Product Details Related Routes...
 Route::get('/addProductDetails', [VendorController::class, 'createProductDetails'])->name('addProductDetails')->middleware(['role:2']);
