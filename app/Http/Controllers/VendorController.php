@@ -123,6 +123,56 @@ class VendorController extends Controller
         return redirect()->route('vendDash');
     }
 
+    public function ecitProductDetails($id)
+    {
+        $cats = Category::where('cat_type', '=', '1')->get();
+        $stores = Store::where('owner_id', Auth::user()->id)->get();
+        $pricingTypes = PricingType::all();
+        $productdetail = ProductDetail::where('id', $id)->first();
+
+        return view('product-details.edit', compact('cats', 'stores', 'pricingTypes', 'productdetail') );
+    }
+
+    public function displayAllProductDetails()
+    {
+        $productdetails = ProductDetail::paginate(20);
+        return view('product-details.index', compact('productdetails'));
+    }
+
+    public function displayProductDetails($id)
+    {
+        $productdetail = ProductDetail::where('id', $id)->first();
+        return view('product-details.show', compact('productdetail'));
+    }  
+
+    public function renovateProductDetails(Request $request)
+    {
+        $matchThese = array('product_id'=>$request->product_id, 'product_code'=>$request->product_code);
+
+            ProductDetail::updateOrCreate($matchThese,
+                [
+                    'product_id'=>$request->product_id,
+                    'product_code'=>$request->product_code,
+                    'details'=>$request->details,
+                    'category_id'=>$request->category_id,
+                    'stock_unit'=>$request->stock_unit,
+                    'price'=>$request->price,
+                    'discount'=>$request->discount,
+                    'discount_start'=>$request->discount_start,
+                    'discount_end'=>$request->discount_end,
+                    'price_type_id'=>$request->price_type_id
+                ]
+            );
+
+        return redirect()->route('vendDash');
+    }
+
+    public function eradicateProductDetails($id)
+    {
+        ProductDetail::where('id', $id)->delete();
+        return redirect()->route('vendDash');
+    }
+
     /*****************************
      * Product Attribute Related
     ******************************/
@@ -148,6 +198,20 @@ class VendorController extends Controller
         return redirect()->route('vendDash');
     }
 
+    public function editProductAttributes($id)
+    {
+        $stores = Store::where('owner_id', Auth::user()->id)->get();
+        $attributes = Attribute::all();
+        $productdetail = ProductAttribute::where('id',$id)->first();
+
+        return view('product-attributes.edit', compact('productdetail', 'stores', 'attributes') );
+    }
+
+    public function displayProductAttributes($id)
+    {
+        $productdetail = ProductAttribute::where("id", $id)->first();
+        return view('product-attributes.show', compact('productdetail'));
+    }
     /*******************
      * Service Related
     ********************/

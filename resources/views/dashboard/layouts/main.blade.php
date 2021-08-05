@@ -39,6 +39,10 @@
 	<body id="kt_body" style="background-image: url({{asset('assets/media/bg/dashboard-cover.jpg')}})" class="quick-panel-right demo-panel-right offcanvas-right header-fixed subheader-enabled page-loading">
 
 	@yield('content')
+
+	<script src="{{ asset('js/app.js') }}"></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	@stack('custom-scripts')
 	</body>
 	<!--end::Body-->
 

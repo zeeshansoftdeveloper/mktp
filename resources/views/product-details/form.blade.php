@@ -74,8 +74,32 @@
 
 
 <div class="form-group">
+    <input name="productdetail_id" type="hidden" id="productdetail_id" value="{{ isset($productdetail->id) ? $productdetail->id : ''}}" >
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
 </div>
 @push('custom-scripts')
-<script src="{{asset('prd_det.js')}}"></script>
+<script >
+$(document).ready(function(){
+    $('#store_id').on('change', function(){
+        var store_id = $('select#store_id option').filter(":selected").val();
+        $.ajax({
+            type:"POST",
+            url:"{{route('getProductByStore')}}",
+            data: {store_id: store_id, _token: '{{csrf_token()}}'},
+            success:function(res)
+            {    
+                $('#product_id').empty();
+                $("#product_id").append('<option>Select Product</option>');
+                if(res)
+                {
+                    $.each(res, function(k, v){    
+                            console.log(v)
+                            $('#product_id').append("<option value='" + v.id + "'>" + v.name + '</option>');
+                    });
+                }
+            }
+        });
+    });
+});
+</script>
 @endpush
