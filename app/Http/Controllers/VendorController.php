@@ -335,9 +335,6 @@ class VendorController extends Controller
         return view('stores.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $matchThese = array('store_name'=>$request->store_name, 'owner_id'=>Auth::user()->id);
@@ -359,19 +356,44 @@ class VendorController extends Controller
 
     public function displayStore($id)
     {
-        $store = Store::where("id", $id)->first();
-        return view('stores.show', compact('Store'));
+        $store = Store::where("id", $id)->where('owner_id', Auth::user()->id)->first();
+        return view('stores.show', compact('store'));
     }
 
     public function displayAllStores()
     {
-        $stores = Store::paginate(20);
+        $stores = Store::where('owner_id', Auth::user()->id)->paginate(20);
         return view('stores.index', compact('stores'));
     }
 
     public function eradicateStore($id)
     {
-        Store::where('id', $id)->delete();
+        Store::where('id', $id)->where('owner_id', Auth::user()->id)->delete();
+        return redirect()->route('vendDash');
+    }
+
+    public function editStore($id)
+    {
+        $store = Store::where('id', $id)->where('owner_id', Auth::user()->id)->first();
+        return view('stores.edit', compact('store') ); 
+    }
+
+    public function renovateStore(Request $request)
+    {
+        $matchThese = array('id'=>$request->store_id, 'owner_id'=>Auth::user()->id);
+        Store::updateOrCreate($matchThese,
+            [
+                'store_name'=>$request->store_name,
+                'store_address'=>$request->store_address,
+                'store_address2'=>$request->store_address2,
+                'store_phone'=>$request->store_phone,
+                'owner_mobile'=>$request->owner_mobile,
+                'owner_id'=>Auth::user()->id,
+                'lat'=>$request->mlat,
+                'lng'=>$request->mlong
+            ]
+        );
+
         return redirect()->route('vendDash');
     }
 

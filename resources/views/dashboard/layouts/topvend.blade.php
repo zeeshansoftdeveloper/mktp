@@ -18,10 +18,17 @@
 										<!--begin::Header Nav-->
 										<ul class="menu-nav">
 											<li class="menu-item menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
+												@if(Auth::user()->role_id===1)
 												<a href="{{route('adminDash')}}" class="menu-link">
 													<span class="menu-text">Dashboard</span>
 													<i class="menu-arrow"></i>
 												</a>
+												@elseif(Auth::user()->role_id===2)
+												<a href="{{route('vendDash')}}" class="menu-link">
+													<span class="menu-text">Dashboard</span>
+													<i class="menu-arrow"></i>
+												</a>
+												@endif
 											</li>
 											
 										</ul>

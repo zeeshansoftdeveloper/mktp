@@ -36,6 +36,7 @@
 
 
 <div class="form-group">
+    <input name="store_id" type="hidden" id="store_id" value="{{ isset($store->id) ? $store->id : ''}}" >
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
 </div>
 

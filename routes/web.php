@@ -69,9 +69,14 @@ Route::get('/vendDash', [VendorController::class, 'index'])->name('vendDash')->m
 
 // Vendor Store Related Routes...
 Route::get('/storeHome/{id}', [StoreController::class, 'index'])->name('storeHome');
+
 Route::get('/addStore', [VendorController::class, 'create'])->name('addStore')->middleware(['role:2']);
 Route::post('/vendor.saveStore', [VendorController::class, 'store'])->name('vendor.saveStore')->middleware(['role:2']);
-Route::get('/removeStore/{id}', [VendorController::class, 'eradicateStore'])->name('removeStore')->middleware(['role:2']);
+Route::get('/indexStores', [VendorController::class, 'displayAllStores'])->name('indexStores')->middleware(['role:2']);
+Route::get('/showStore/{id}', [VendorController::class, 'displayStore'])->name('showStore')->middleware(['role:2']);
+Route::delete('/removeStore/{id}', [VendorController::class, 'eradicateStore'])->name('removeStore')->middleware(['role:2']);
+Route::get('/changeStore/{id}', [VendorController::class, 'editStore'])->name('changeStore')->middleware(['role:2']);
+Route::post('/updateStore', [VendorController::class, 'renovateStore'])->name('updateStore')->middleware(['role:2']);
 
 // Vendor Store Image Related Page Routes...
 Route::get('/storeImgSet', [StoreImageController::class, 'create'])->name('storeImgSet');

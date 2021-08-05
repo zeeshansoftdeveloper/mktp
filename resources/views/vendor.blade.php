@@ -325,7 +325,7 @@
 
 
                             <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">{{$storeCount}}</div>
-                            <a href="{{route('addStore')}}" class="text-inverse-primary font-weight-bold font-size-lg mt-1">Stores</a>
+                            <a href="{{route('indexStores')}}" class="text-inverse-primary font-weight-bold font-size-lg mt-1">Stores</a>
                         </div>
                     </div>
                     <!--end::Tiles Widget 11-->
