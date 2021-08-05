@@ -28,11 +28,9 @@ class VendorController extends Controller
         $this->middleware(['auth', 'role:2']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /***************************************
+     * Vendor Dashboard Related
+    ****************************************/
     public function index(Request $request)
     {
         $storeList = Store::where('owner_id', '=', Auth::user()->id)->get();
@@ -46,6 +44,9 @@ class VendorController extends Controller
         return view('vendor', compact('storeCount', 'prodCount', 'srvCount'));
     }
 
+    /*****************************
+     * Yajra AJAX Related
+    ******************************/
     public function StoreListing(Request $request)
     {
         if ($request->ajax()) {
@@ -79,61 +80,77 @@ class VendorController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    /*****************************
+     * Simnple AJAX Related
+    ******************************/
+    public function fetchProductByStore(Request $request)
     {
-        return view('stores.create');
+        $data = Product::select('id', 'name')->where('store_id', '=', $request->store_id)->get();
+        return Response::json($data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    /*****************************
+     * Product Detail Related
+    ******************************/
+  
+    public function createProductDetails()
     {
-        $matchThese = array('store_name'=>$request->store_name, 'owner_id'=>Auth::user()->id);
-        Store::updateOrCreate($matchThese,
-            [
-                'store_name'=>$request->store_name,
-                'store_address'=>$request->store_address,
-                'store_address2'=>$request->store_address2,
-                'store_phone'=>$request->store_phone,
-                'owner_mobile'=>$request->owner_mobile,
-                'owner_id'=>Auth::user()->id,
-                'lat'=>$request->mlat,
-                'lng'=>$request->mlong
-            ]
-        );
-
-        return redirect()->route('vendDash')->withSuccess('Saved');
-    }
-
-    public function createProduct()
-    {
-        // $cats = Category::where('cat_type', '=', '1')->get();
+        $cats = Category::where('cat_type', '=', '1')->get();
         $stores = Store::where('owner_id', Auth::user()->id)->get();
-        return view('products.create', compact('stores') ); 
+        $pricingTypes = PricingType::all();
+        return view('product-details.create', compact('cats', 'stores', 'pricingTypes') );
     }
 
-    public function storeProduct(Request $request)
+    public function storeProductDetails(Request $request)
     {
-        $matchThese = array('name'=>$request->name, 'store_id'=>$request->store_id);
-        Product::updateOrCreate($matchThese,
-            [
-                'name'=>$request->name,
-                'store_id'=>$request->store_id
-            ]
-        );
+            $matchThese = array('product_id'=>$request->product_id, 'product_code'=>$request->product_code);
+
+            ProductDetail::updateOrCreate($matchThese,
+                [
+                    'product_id'=>$request->product_id,
+                    'product_code'=>$request->product_code,
+                    'details'=>$request->details,
+                    'category_id'=>$request->category_id,
+                    'stock_unit'=>$request->stock_unit,
+                    'price'=>$request->price,
+                    'discount'=>$request->discount,
+                    'discount_start'=>$request->discount_start,
+                    'discount_end'=>$request->discount_end,
+                    'price_type_id'=>$request->price_type_id
+                ]
+            );
 
         return redirect()->route('vendDash');
     }
 
+    /*****************************
+     * Product Attribute Related
+    ******************************/
+    public function createProductAttributes()
+    {
+        $stores = Store::where('owner_id', Auth::user()->id)->get();
+        $attributes = Attribute::all();
+        return view('product-attributes.create', compact('stores', 'attributes') );
+    }
+
+    public function storeProductAttributes(Request $request)
+    {
+            $matchThese = array('product_id'=>$request->product_id, 'attribute_id'=>$request->attribute_id, 'vals'=>$request->vals);
+
+            ProductAttribute::updateOrCreate($matchThese,
+                [
+                    'product_id'=>$request->product_id,
+                    'attribute_id'=>$request->attribute_id,
+                    'vals'=>$request->vals
+                ]
+            );
+
+        return redirect()->route('vendDash');
+    }
+
+    /*******************
+     * Service Related
+    ********************/
     public function createService()
     {
         $cats = Category::where('cat_type', '=', '0')->get();
@@ -165,65 +182,7 @@ class VendorController extends Controller
           }
         return redirect()->route('vendDash');
     }
-
-    public function createProductDetails()
-    {
-        $cats = Category::where('cat_type', '=', '1')->get();
-        $stores = Store::where('owner_id', Auth::user()->id)->get();
-        $pricingTypes = PricingType::all();
-        return view('product-details.create', compact('cats', 'stores', 'pricingTypes') );
-    }
-
-    public function storeProductDetails(Request $request)
-    {
-            $matchThese = array('product_id'=>$request->product_id, 'product_code'=>$request->product_code);
-
-            ProductDetail::updateOrCreate($matchThese,
-                [
-                    'product_id'=>$request->product_id,
-                    'product_code'=>$request->product_code,
-                    'details'=>$request->details,
-                    'category_id'=>$request->category_id,
-                    'stock_unit'=>$request->stock_unit,
-                    'price'=>$request->price,
-                    'discount'=>$request->discount,
-                    'discount_start'=>$request->discount_start,
-                    'discount_end'=>$request->discount_end,
-                    'price_type_id'=>$request->price_type_id
-                ]
-            );
-
-        return redirect()->route('vendDash');
-    }
-
-    public function fetchProductByStore(Request $request)
-    {
-        $data = Product::select('id', 'name')->where('store_id', '=', $request->store_id)->get();
-        return Response::json($data);
-    }
-
-    public function createProductAttributes()
-    {
-        $stores = Store::where('owner_id', Auth::user()->id)->get();
-        $attributes = Attribute::all();
-        return view('product-attributes.create', compact('stores', 'attributes') );
-    }
-
-    public function storeProductAttributes(Request $request)
-    {
-            $matchThese = array('product_id'=>$request->product_id, 'attribute_id'=>$request->attribute_id, 'vals'=>$request->vals);
-
-            ProductAttribute::updateOrCreate($matchThese,
-                [
-                    'product_id'=>$request->product_id,
-                    'attribute_id'=>$request->attribute_id,
-                    'vals'=>$request->vals
-                ]
-            );
-
-        return redirect()->route('vendDash');
-    }
-
+    
     public function editService($id)
     {
         $cats = Category::where('cat_type', '=', '0')->get();
@@ -274,6 +233,77 @@ class VendorController extends Controller
     {
         $services = Service::paginate(20);
         return view('services.index', compact('services'));
+    }
+
+    /****************
+     * Store Related
+    ****************/
+    public function create()
+    {
+        return view('stores.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $matchThese = array('store_name'=>$request->store_name, 'owner_id'=>Auth::user()->id);
+        Store::updateOrCreate($matchThese,
+            [
+                'store_name'=>$request->store_name,
+                'store_address'=>$request->store_address,
+                'store_address2'=>$request->store_address2,
+                'store_phone'=>$request->store_phone,
+                'owner_mobile'=>$request->owner_mobile,
+                'owner_id'=>Auth::user()->id,
+                'lat'=>$request->mlat,
+                'lng'=>$request->mlong
+            ]
+        );
+
+        return redirect()->route('vendDash')->withSuccess('Saved');
+    }
+
+    public function createProduct()
+    {
+        // $cats = Category::where('cat_type', '=', '1')->get();
+        $stores = Store::where('owner_id', Auth::user()->id)->get();
+        return view('products.create', compact('stores') ); 
+    }
+
+    public function storeProduct(Request $request)
+    {
+        $matchThese = array('name'=>$request->name, 'store_id'=>$request->store_id);
+        Product::updateOrCreate($matchThese,
+            [
+                'name'=>$request->name,
+                'store_id'=>$request->store_id
+            ]
+        );
+
+        return redirect()->route('vendDash');
+    }
+
+    public function displayStore($id)
+    {
+        $store = Store::where("id", $id)->first();
+        return view('stores.show', compact('Store'));
+    }
+
+    public function displayAllStores()
+    {
+        $stores = Store::paginate(20);
+        return view('stores.index', compact('stores'));
+    }
+
+    public function eradicateStore($id)
+    {
+        Store::where('id', $id)->delete();
+        return redirect()->route('vendDash');
     }
 
     /**

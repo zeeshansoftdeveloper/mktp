@@ -62,6 +62,8 @@ Route::get('/vendDash', [VendorController::class, 'index'])->name('vendDash')->m
 Route::get('/addStore', [VendorController::class, 'create'])->name('addStore')->middleware(['role:2']);
 Route::post('/vendor.saveStore', [VendorController::class, 'store'])->name('vendor.saveStore')->middleware(['role:2']);
 
+Route::get('/removeStore/{id}', [VendorController::class, 'eradicateStore'])->name('removeStore')->middleware(['role:2']);
+
 Route::get('/addproduct', [VendorController::class, 'createProduct'])->name('addproduct')->middleware(['role:2']);
 Route::post('/saveProduct', [VendorController::class, 'storeProduct'])->name('saveProduct')->middleware(['role:2']);
 Route::get('/prodLister', [VendorController::class, 'productListing'])->name('prodLister')->middleware(['role:2']);
