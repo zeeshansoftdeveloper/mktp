@@ -68,8 +68,6 @@ Route::post('/saveCategory', [AdminController::class, 'storeCategory'])->name('s
 Route::get('/vendDash', [VendorController::class, 'index'])->name('vendDash')->middleware(['role:2']);
 
 // Vendor Store Related Routes...
-Route::get('/storeHome/{id}', [StoreController::class, 'index'])->name('storeHome');
-
 Route::get('/addStore', [VendorController::class, 'create'])->name('addStore')->middleware(['role:2']);
 Route::post('/vendor.saveStore', [VendorController::class, 'store'])->name('vendor.saveStore')->middleware(['role:2']);
 Route::get('/indexStores', [VendorController::class, 'displayAllStores'])->name('indexStores')->middleware(['role:2']);
@@ -77,10 +75,6 @@ Route::get('/showStore/{id}', [VendorController::class, 'displayStore'])->name('
 Route::delete('/removeStore/{id}', [VendorController::class, 'eradicateStore'])->name('removeStore')->middleware(['role:2']);
 Route::get('/changeStore/{id}', [VendorController::class, 'editStore'])->name('changeStore')->middleware(['role:2']);
 Route::post('/updateStore', [VendorController::class, 'renovateStore'])->name('updateStore')->middleware(['role:2']);
-
-// Vendor Store Image Related Page Routes...
-Route::get('/storeImgSet', [StoreImageController::class, 'create'])->name('storeImgSet');
-Route::post('/storeImgSave', [StoreImageController::class, 'store'])->name('storeImgSave');
 
 // Vendor Product Related Routes...
 Route::get('/addproduct', [VendorController::class, 'createProduct'])->name('addproduct')->middleware(['role:2']);
@@ -120,6 +114,14 @@ Route::delete('/removeService/{id}', [VendorController::class, 'eradicateService
 Route::get('/showService/{id}', [VendorController::class, 'displayService'])->name('showService')->middleware(['role:2']);
 Route::get('/indexServices', [VendorController::class, 'displayAllServices'])->name('indexServices')->middleware(['role:2']);
 
+// Store Image Related Page Routes...
+Route::get('/storeHome/{id}', [StoreImageController::class, 'newIndex'])->name('storeHome');
+Route::get('/indexstoreImgs', [StoreImageController::class, 'index'])->name('indexstoreImgs')->middleware(['role:2']);
+Route::get('/addstoreImg', [StoreImageController::class, 'create'])->name('addstoreImg');
+Route::post('/storeImgSave', [StoreImageController::class, 'store'])->name('storeImgSave');
+Route::get('/changestoreImg/{id}', [StoreImageController::class, 'edit'])->name('changestoreImg')->middleware(['role:2']);
+Route::post('/updatestoreImg', [StoreImageController::class, 'update'])->name('updatestoreImg');
+
 // Laravel Caches Clear Related Routes...
 Route::get('/cls', function () {
     Artisan::call('cache:clear');
@@ -127,4 +129,5 @@ Route::get('/cls', function () {
     Artisan::call('config:clear');
     Artisan::call('optimize');
     Artisan::call('route:clear');
+    Artisan::call('storage:link');
 })->name('cls');

@@ -365,7 +365,7 @@
 						</svg><!--end::Svg Icon--></span>
 
                             <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">-</div>
-                            <a href="{{route('storeImgSet')}}" class="text-inverse-white font-weight-bold font-size-lg mt-1">Store Image</a>
+                            <a href="{{route('indexstoreImgs')}}" class="text-inverse-white font-weight-bold font-size-lg mt-1">Store Image</a>
                         </div>
                     </div>
                     <!--end::Tiles Widget 11-->

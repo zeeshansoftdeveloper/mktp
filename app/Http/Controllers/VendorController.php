@@ -327,9 +327,9 @@ class VendorController extends Controller
         return view('services.index', compact('services'));
     }
 
-    /****************
+    /*****************
      * Store Related
-    ****************/
+    *****************/
     public function create()
     {
         return view('stores.create');

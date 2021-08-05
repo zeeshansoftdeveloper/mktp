@@ -21,5 +21,6 @@
 
 
 <div class="form-group">
+<input name="store_image_id" type="hidden" id="store_image_id" value="{{ isset($store_image->id) ? $store_image->id : ''}}" >
     <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
 </div>
