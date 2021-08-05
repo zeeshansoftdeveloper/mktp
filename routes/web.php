@@ -100,6 +100,11 @@ Route::delete('/removeProductDetails/{id}', [VendorController::class, 'eradicate
 // Vendor Product Attributes Related Routes...
 Route::get('/addProductAttributes', [VendorController::class, 'createProductAttributes'])->name('addProductAttributes')->middleware(['role:2']);
 Route::post('/saveProductAttributes', [VendorController::class, 'storeProductAttributes'])->name('saveProductAttributes')->middleware(['role:2']);
+Route::get('/indexProductAttributes', [VendorController::class, 'displayAllProductAttributes'])->name('indexProductAttributes')->middleware(['role:2']);
+Route::get('/showProductAttributes/{id}', [VendorController::class, 'displayProductAttribute'])->name('showProductAttributes')->middleware(['role:2']);
+Route::get('/changeProductAttributes/{id}', [VendorController::class, 'editProductAttributes'])->name('changeProductAttributes')->middleware(['role:2']);
+Route::post('/updateProductAttributes', [VendorController::class, 'renovateProductAttributes'])->name('updateProductAttributes')->middleware(['role:2']);
+Route::delete('/removeProductAttributes/{id}', [VendorController::class, 'eradicateProductAttributes'])->name('removeProductAttributes')->middleware(['role:2']);
 
 // Vendor Services Related Routes...
 Route::get('/addservice', [VendorController::class, 'createService'])->name('addservice')->middleware(['role:2']);

@@ -277,7 +277,7 @@
                             </span>
 
                             <div class="text-inverse-primary font-weight-bolder font-size-h2 mt-3">-</div>
-                            <a href="{{route('addProductAttributes')}}" class="text-inverse-primary font-weight-bold font-size-lg mt-1">Prod. Attribute</a>
+                            <a href="{{route('indexProductAttributes')}}" class="text-inverse-primary font-weight-bold font-size-lg mt-1">Prod. Attribute</a>
                         </div>
                     </div>
                     <!--end::Tiles Widget 11-->

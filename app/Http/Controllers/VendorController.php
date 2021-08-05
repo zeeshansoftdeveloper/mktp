@@ -202,16 +202,44 @@ class VendorController extends Controller
     {
         $stores = Store::where('owner_id', Auth::user()->id)->get();
         $attributes = Attribute::all();
-        $productdetail = ProductAttribute::where('id',$id)->first();
+        $productattribute = ProductAttribute::where('id',$id)->first();
 
-        return view('product-attributes.edit', compact('productdetail', 'stores', 'attributes') );
+        return view('product-attributes.edit', compact('productattribute', 'stores', 'attributes') );
     }
 
-    public function displayProductAttributes($id)
+    public function renovateProductAttributes(Request $request)
     {
-        $productdetail = ProductAttribute::where("id", $id)->first();
-        return view('product-attributes.show', compact('productdetail'));
+            $matchThese = array('id'=>$request->productattribute_id);
+
+            ProductAttribute::updateOrCreate($matchThese,
+                [
+                    'product_id'=>$request->product_id,
+                    'attribute_id'=>$request->attribute_id,
+                    'vals'=>$request->vals
+                ]
+            );
+
+        return redirect()->route('vendDash');
     }
+
+    public function displayProductAttribute($id)
+    {
+        $productattribute = ProductAttribute::where("id", $id)->first();
+        return view('product-attributes.show', compact('productattribute'));
+    }
+
+    public function displayAllProductAttributes()
+    {
+        $productattributes = ProductAttribute::paginate(20);
+        return view('product-attributes.index', compact('productattributes'));
+    }
+
+    public function eradicateProductAttributes($id)
+    {
+        ProductAttribute::where('id', $id)->delete();
+        return redirect()->route('vendDash');
+    }
+
     /*******************
      * Service Related
     ********************/
