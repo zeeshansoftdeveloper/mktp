@@ -267,7 +267,6 @@ class VendorController extends Controller
 
     public function createProduct()
     {
-        // $cats = Category::where('cat_type', '=', '1')->get();
         $stores = Store::where('owner_id', Auth::user()->id)->get();
         return view('products.create', compact('stores') ); 
     }
@@ -301,50 +300,5 @@ class VendorController extends Controller
     {
         Store::where('id', $id)->delete();
         return redirect()->route('vendDash');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
