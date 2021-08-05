@@ -82,6 +82,8 @@ Route::get('/addproduct', [VendorController::class, 'createProduct'])->name('add
 Route::post('/saveProduct', [VendorController::class, 'storeProduct'])->name('saveProduct')->middleware(['role:2']);
 Route::get('/prodLister', [VendorController::class, 'productListing'])->name('prodLister')->middleware(['role:2']);
 Route::post('/getProductByStore', [VendorController::class, 'fetchProductByStore'])->name('getProductByStore')->middleware(['role:2']);
+Route::get('/changeProduct/{id}', [VendorController::class, 'editProduct'])->name('changeProduct')->middleware(['role:2']);
+Route::post('/saveProduct', [VendorController::class, 'storeProduct'])->name('saveProduct')->middleware(['role:2']);
 
 // Vendor Product Details Related Routes...
 Route::get('/addProductDetails', [VendorController::class, 'createProductDetails'])->name('addProductDetails')->middleware(['role:2']);
@@ -96,7 +98,7 @@ Route::get('/addservice', [VendorController::class, 'createService'])->name('add
 Route::post('/saveService', [VendorController::class, 'storeService'])->name('saveService')->middleware(['role:2']);
 Route::get('/changeService/{id}', [VendorController::class, 'editService'])->name('changeService')->middleware(['role:2']);
 Route::post('/updateService', [VendorController::class, 'renovateService'])->name('updateService')->middleware(['role:2']);
-Route::post('/removeService/{id}', [VendorController::class, 'eradicateService'])->name('removeService')->middleware(['role:2']);
+Route::delete('/removeService/{id}', [VendorController::class, 'eradicateService'])->name('removeService')->middleware(['role:2']);
 Route::get('/showService/{id}', [VendorController::class, 'displayService'])->name('showService')->middleware(['role:2']);
 Route::get('/indexServices', [VendorController::class, 'displayAllServices'])->name('indexServices')->middleware(['role:2']);
 

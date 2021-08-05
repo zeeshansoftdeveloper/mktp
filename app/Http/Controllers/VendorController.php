@@ -226,7 +226,7 @@ class VendorController extends Controller
     public function displayService($id)
     {
         $service = Service::where("id", $id)->first();
-        return view('services.show', compact('services'));
+        return view('services.show', compact('service'));
     }
 
     public function displayAllServices()

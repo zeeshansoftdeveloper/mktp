@@ -176,7 +176,7 @@
                                     <!--end::Pic-->
                                     <!--begin::Title-->
                                     <div class="d-flex flex-column">
-                                        <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0">Mr Vendor</a>
+                                        <a href="#" class="text-dark font-weight-bold text-hover-primary font-size-h4 mb-0">{{Auth::user()->name}}</a>
                                         
                                     </div>
                                     <!--end::Title-->
@@ -193,19 +193,19 @@
                             <div class="mb-7 mt-10">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="text-dark-75 font-weight-bolder mr-2">Email:</span>
-                                    <a href="#" class="text-muted text-hover-primary">vendor@app.com</a>
+                                    <a href="#" class="text-muted text-hover-primary">{{Auth::user()->email}}</a>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-cente my-1">
+                                <!-- <div class="d-flex justify-content-between align-items-cente my-1">
                                     <span class="text-dark-75 font-weight-bolder mr-2">Phone:</span>
                                     <a href="#" class="text-muted text-hover-primary">0508276228</a>
-                                </div>
+                                </div> -->
                                 
                             </div>
                             <!--end::Info-->
-                            <div class="mb-7 mt-10">
+                            <!-- <div class="mb-7 mt-10">
                                 <a href="/Vendor/EditProfile" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">Edit Profile</a>
                                 <a href="/Account/ChangePassword" class="btn btn-block btn-sm btn-light-warning font-weight-bolder text-uppercase py-4">Change Password</a>
-                            </div>
+                            </div> -->
                         </div>
                         <!--end::Body-->
                     </div>
